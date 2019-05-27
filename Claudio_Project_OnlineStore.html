@@ -1,0 +1,107 @@
+<!--
+	Name: Claudio Souza
+	Date: April 16th, 2019
+	Purpose: Project IWD Online Store
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Project Online Store</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+	</head>
+	<body onload="initialize();">
+		<table>
+			<tr>
+				<td><a href="#"><img src="img/online_store.png"></a></td>
+				<td><h1>Online Store</h1></td>
+			</tr>
+		</table>
+		
+		<div style="text-align: right;">			
+			<span id="dateArea"></span>
+		</div>
+		<fieldset> <legend>Store Items</legend>
+			<select id="displayFilter" onchange="displayProducts();">
+				<option>All</option>
+			</select>
+			<br/>
+			<span><strong>| Product ID | Product Name | Price | Qty | Max | Category |</strong></span>
+			<div id="inventoryOutput"></div>
+		</fieldset>
+		<br>
+		<fieldset> <legend>Select Items</legend>
+			<p>
+				Product ID: <input type="text" id="addItemId" />
+				<span id="addIDValidationMessage"></span>
+			</p>
+			<p>
+				Qty: <input type="number" id="addItemQty" />
+				<span id="addQtyValidationMessage"></span>
+			</p>
+			<p>
+				<input type="button" class="btn" id="btn_detail" value="Item Details" onclick="productDetails();"/>
+				<input type="button" class="btn" id="btn_add" value="Add Item" onclick="addProductToCart();"/>
+				<input type="button" class="btn" id="btn_remove" value="Remove Item" onclick="removeProductFromCart();"/>
+			</p>
+		</fieldset>
+		<br>
+		<fieldset> <legend>Your Cart</legend>
+			<span><strong>| Product ID | Price | Qty | Subtotal |</strong></span>
+			<br>
+			<div id="cartOutput"></div>
+			<br>
+			<div id="cartCheckout"></div>
+		</fieldset>
+		<br>
+		<fieldset> <legend>Review an Item</legend>
+			<p>Product ID: <input type="text" id="reviewId" /> <span id="addIDValidationMessageReview"></span></p>
+			<p>Review: <input type="text" id="reviewDesc"/></p>
+			<p><input type="button" class="btn" id="btn_review" value="Review" onclick="addReview();"/></p>
+		</fieldset>
+		
+		<!-- Javascript -->
+		<script src="js/product.js"></script><!-- Product Object Constructor and prototype methods -->
+		<script src="js/cart.js"></script><!-- Cart Object Constructor and prototype methods -->
+		<script src="js/helper.js"></script><!-- Helper Functions -->
+		<script src="js/display.js"></script><!-- Display Functions to the Products and Cart -->
+		<script src="js/initialize.js"></script><!-- Function to initialize the page -->
+		<script src="js/validations.js"></script><!-- Functions to validate fields -->
+		<script src="js/product_handling.js"></script><!-- Functions to handle products (Add/Remove/Details) -->
+
+        <script>
+			
+			// Global valiables (arrays) for the Objects
+			var products = [];
+			var cart = [];			
+
+			// Global variable to calculate products in the cart
+			var productSubtotal = 0.0;
+			var shipping = 0.0;
+			var subtotal = 0.0;
+			var tax = 0.0;
+			var total = 0.0;
+			
+			// Constant tax 15%
+			const GST_HST = 0.15;
+
+			// Add some products (15)
+            products.push( new Product( generateId(), "Microwave RCA", 64.97, 50, 5, "Appliances", 0.59, ["Excellent Product!"], "Microwave Oven"));
+			products.push( new Product( generateId(), "Vacuum iRobot", 318, 30, 3, "Appliances", 0.59, ["It cleaned my entire room yesterday..."], "Vacuuming Robot"));
+			products.push( new Product( generateId(), "Fan", 34.99, 200, 10, "Appliances", 0.59, ["Very quiet!"], "Stand Fan"));
+			products.push( new Product( generateId(), "Electric Kettle", 39.97, 70, 5, "Appliances", 0.59, [], "Glass Kettle 1.7 L, Glass & Stainless"));
+			products.push( new Product( generateId(), "Sofa", 459.97, 10, 2, "Furniture", 2.5, [], "Double cushioned backs and plush overstuffed headrests adorn this attractive grey motion set"));
+			products.push( new Product( generateId(), "Desk", 44.98, 35, 3, "Furniture", 2.5, ["Well built!"], "Oak Computer Desk"));
+			products.push( new Product( generateId(), "Bed Frame", 39.97, 200, 10, "Furniture", 2.5, [], "6 inch Low Profile Foundation supports Memory Foam, Spring, and Hybrid mattresses"));
+			products.push( new Product( generateId(), "Video Game 1", 499.99, 400, 20, "Video Games", 1.5, ["I am playing diverse games and it is running really well!"], "PRO 1TB Console 4K TV GAMING & MORE"));
+			products.push( new Product( generateId(), "Video Game 2", 519.96, 350, 14, "Video Games", 1.5, [], "1TB"));
+			products.push( new Product( generateId(), "Video Game 3", 379.96, 300, 13, "Video Games", 1.5, [], "Console including 2 games"));
+			products.push( new Product( generateId(), "Laptop ", 2299, 40, 2, "Electronics", 1.5, [], "Gaming Laptop"));
+			products.push( new Product( generateId(), "Smartphone", 399.95, 300, 10, "Electronics", 2.5, [], "(2018) 64GB Dual SIM, Factory Unlocked, International Version with 1 Year Warranty"));
+			products.push( new Product( generateId(), "Printer All-in-One Printer", 39.99, 500, 25, "Electronics", 1.5, ["It prints and digitalizes really fast!"], "Quickly print, scan, and copy right out of the box and keep free of clutter with a space-saving design."));
+			products.push( new Product( generateId(), "Smart TV", 798, 10, 2, "Electronics", 1.5, [], "58 inch UHD 4K Flat Smart TV - 4K UHD, 120 Motion Rate, Cable Management System"));
+			products.push( new Product( generateId(), "Cam Motion", 399.99, 100, 6, "Electronics", 1.5, ["Excellent resolution!"], "Makes every moment look amazing."));
+
+		</script>
+	</body>
+</html>
